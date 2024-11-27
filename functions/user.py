@@ -11,7 +11,7 @@ from utils.image_save import save_file
 def user_image(file: UploadFile = File(...), db: Session = Depends(database),
                current_user: CreateUser = Depends(get_current_active_user)):
     image_filename = save_file(file)
-    user = db.query(Users).filter(Users.id == current_user).first()
+    user = db.query(Users).filter(Users.id == current_user.id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User topilmadi")
     user.image = image_filename
