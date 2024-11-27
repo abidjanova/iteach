@@ -7,8 +7,6 @@ class CreateCourse(BaseModel):
     teacher: str
     lesson_count: int
     language: str
-    image: Optional[str] = None
-    video: Optional[str] = None
 
 
 class UpdateCourse(BaseModel):
