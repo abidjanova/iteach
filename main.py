@@ -6,16 +6,19 @@ from db import Base, engine
 from router.course import course_router
 from router.opinion import opinion_router
 from router.registered import register_router
+from router.user import users_router
+from router.login import login_router
 from fastapi.staticfiles import StaticFiles
 
-app = FastAPI(title="Oybekjon",
+app = FastAPI(title="Iteach",
               docs_url='/')
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
 Base.metadata.create_all(bind=engine)
 
-
+app.include_router(login_router)
+app.include_router(users_router)
 app.include_router(course_router)
 app.include_router(opinion_router)
 app.include_router(register_router)
