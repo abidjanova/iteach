@@ -49,8 +49,9 @@ def update_course(ident, form, db, current_user):
         db.query(Course).filter(Course.id == ident).update({
             Course.title: form.title,
             Course.period: form.period,
-             Course.lesson_count: form.lesson_count,
+            Course.lesson_count: form.lesson_count,
             Course.language: form.language,
+            Course.teacher: form.teacher
         })
         db.commit()
         db.refresh(course)
