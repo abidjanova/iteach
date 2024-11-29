@@ -9,7 +9,7 @@ from router.registered import register_router
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title="Oybekjon",
-              docs_url=None)
+              docs_url='/')
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
