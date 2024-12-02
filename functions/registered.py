@@ -11,7 +11,7 @@ def create_register(form, db, current_user):
         db.commit()
 
 
-def update(form, register_id, db, current_user):
+def update_register(form, register_id, db, current_user):
     if current_user.role == "admin":
         db.query(Register).filter(Register.id == register_id).update({
             Register.name: form.name,
@@ -22,7 +22,7 @@ def update(form, register_id, db, current_user):
         raise HTTPException(404, "Siz admin emasiz")
 
 
-def delete(db, register_id, current_user):
+def delete_register(db, register_id, current_user):
     if current_user.role == "admin":
         db.query(Register).filter(Register.id == register_id).delete()
         db.commit()

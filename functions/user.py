@@ -20,7 +20,7 @@ def user_image(file: UploadFile = File(...), db: Session = Depends(database),
 
 def create_admin(form, db, current_user):
     if current_user.role == "admin":
-        if form.email.startswith('@') and form.email.endswith('.com'):
+        if form.email.endswith('@gmail.com') or form.email.endswith('@email.com'):
             new_item_db = Users(
                name=form.name,
                username=form.username,
@@ -29,6 +29,8 @@ def create_admin(form, db, current_user):
                password=get_password_hash(form.password))
             db.add(new_item_db)
             db.commit()
+        else:
+            raise HTTPException(400, "Email ni togri kiriting example : example@gmail.com")
     else:
         raise HTTPException(400, "Sizga ruxsat yo'q")
 

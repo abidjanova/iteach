@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from db import database
-from functions.registered import create_register, update, delete
+from functions.registered import create_register, update_register, delete_register
 from models.registered import Register
 from router.login import get_current_active_user
 from schemas.registered import CreateRegister
@@ -14,26 +14,26 @@ register_router = APIRouter(
 )
 
 @register_router.get("/get_register")
-def get(db: Session = Depends(database)):
+def registerlarni_korish(db: Session = Depends(database)):
     return db.query(Register).all()
 
 
 @register_router.post("/create_opinion")
-def create_new_opinion(form: CreateRegister, db: Session = Depends(database),
+def register_yaratish(form: CreateRegister, db: Session = Depends(database),
                        current_user: CreateUser = Depends(get_current_active_user)):
     create_register(form, db, current_user)
     raise HTTPException(200, "Amaliyiot muvafaqiyatli amalga oshirildi")
 
 
 @register_router.put("/update_register")
-def update_register(form: CreateRegister, register_id: int, db: Session = Depends(database),
+def register_tahrirlash(form: CreateRegister, register_id: int, db: Session = Depends(database),
                     current_user: CreateUser = Depends(get_current_active_user)):
-     update(form, register_id, db, current_user)
+     update_register(form, register_id, db, current_user)
      raise HTTPException(200, "Amaliyiot muvafaqiyatli amalga oshirildi")
 
 
 @register_router.delete("/delete_register")
-def delete_register(register_id: int, db: Session = Depends(database),
+def registerni_ochirish(register_id: int, db: Session = Depends(database),
                     current_user: CreateUser = Depends(get_current_active_user)):
-     delete(db, register_id, current_user)
+     delete_register(db, register_id, current_user)
      raise HTTPException(200, "Amaliyiot muvafaqiyatli amalga oshirildi")

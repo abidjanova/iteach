@@ -17,7 +17,7 @@ app.mount("/images", StaticFiles(directory="images"), name="images")
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(login_router)
+app.include_router(login_router)xrd
 app.include_router(users_router)
 app.include_router(course_router)
 app.include_router(opinion_router)

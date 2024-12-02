@@ -43,14 +43,14 @@ def video_yuklas(ident: int = 0, file: UploadFile = File(...), db: Session = Dep
     raise HTTPException(status_code=200, detail="Amaliyot muvafaqiyatli amalga oshirildi!")
 
 @course_router.put("/update_admin")
-def admin_tahrirlash(ident: int, form: UpdateCourse, db: Session = Depends(database),
+def course_tahrirlash(ident: int, form: UpdateCourse, db: Session = Depends(database),
                      current_user: CreateUser = Depends(get_current_active_user)):
     update_course(ident, form, db, current_user)
     raise HTTPException(status_code=200, detail="Amaliyot muvaffaqiyatli amalga oshirildi")
 
 
 @course_router.delete("/delete")
-def delete_users(ident: int, db: Session = Depends(database),
+def kursni_ochirish(ident: int, db: Session = Depends(database),
                  current_user: CreateUser = Depends(get_current_active_user)):
     delete_course(ident, db, current_user)
     raise HTTPException(status_code=200, detail="Amaliyot muvaffaqiyatli amalga oshirildi")
