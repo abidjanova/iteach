@@ -17,6 +17,8 @@ def course_image(ident, file: UploadFile = File(...), db: Session = Depends(data
             raise HTTPException(status_code=404, detail="Course topilmadi")
         course.image = image_filename
         db.commit()
+    else:
+        raise HTTPException(400, "Siz admin emasiz")
 
 
 def course_video(ident, file: UploadFile = File(...), db: Session = Depends(database),
@@ -28,6 +30,8 @@ def course_video(ident, file: UploadFile = File(...), db: Session = Depends(data
             raise HTTPException(status_code=404, detail="Course topilmadi")
         course.video = video_filename
         db.commit()
+    else:
+        raise HTTPException(400, "Siz admin emasiz")
 
 def create_course(form, db, current_user):
     if current_user.role == "admin":
@@ -40,6 +44,9 @@ def create_course(form, db, current_user):
         )
         db.add(new_course)
         db.commit()
+        return {"massage": "Register yaratildi", "register_id": new_course.id}
+    else:
+        raise HTTPException(400, "Siz admin emasiz")
 
 def update_course(ident, form, db, current_user):
     if current_user.role == "admin":
@@ -55,6 +62,8 @@ def update_course(ident, form, db, current_user):
         })
         db.commit()
         db.refresh(course)
+    else:
+        raise HTTPException(400, "Siz admin emasiz")
 
 
 def delete_course(ident, db, current_user):
@@ -64,3 +73,5 @@ def delete_course(ident, db, current_user):
             raise HTTPException(status_code=404, detail="Course topilmadi")
         db.delete(course)
         db.commit()
+    else:
+        raise HTTPException(400, "Siz admin emasiz")

@@ -21,15 +21,16 @@ def registerlarni_korish(db: Session = Depends(database)):
 @register_router.post("/create_opinion")
 def register_yaratish(form: CreateRegister, db: Session = Depends(database),
                        current_user: CreateUser = Depends(get_current_active_user)):
-    create_register(form, db, current_user)
-    raise HTTPException(200, "Amaliyiot muvafaqiyatli amalga oshirildi")
-
+    try:
+        return create_register(form, db, current_user)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 @register_router.put("/update_register")
 def register_tahrirlash(form: CreateRegister, register_id: int, db: Session = Depends(database),
                     current_user: CreateUser = Depends(get_current_active_user)):
      update_register(form, register_id, db, current_user)
-     raise HTTPException(200, "Amaliyiot muvafaqiyatli amalga oshirildi")
+     raise HTTPException(200, "Register tahrirlandi")
 
 
 @register_router.delete("/delete_register")

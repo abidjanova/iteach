@@ -26,8 +26,10 @@ def get_courses(db: Session = Depends(database)):
 @course_router.post("/create_course")
 async def course_yaratish(form: CreateCourse, db: Session = Depends(database),
                           current_user: CreateUser = Depends(get_current_active_user)):
-    create_course(form, db, current_user)
-    raise HTTPException(status_code=200, detail="Amaliyot muvaffaqiyatli amalga oshirildi")
+    try:
+        return create_course(form, db, current_user)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @course_router.post('/upload-image')

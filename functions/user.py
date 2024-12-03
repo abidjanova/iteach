@@ -31,8 +31,6 @@ def create_admin(form, db, current_user):
             db.commit()
         else:
             raise HTTPException(400, "Email ni togri kiriting example : example@gmail.com")
-    else:
-        raise HTTPException(400, "Sizga ruxsat yo'q")
 
 
 def update_admin(form, db, current_user):
